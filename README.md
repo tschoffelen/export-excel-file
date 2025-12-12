@@ -1,17 +1,17 @@
-# download-as-spreadsheet
+# export-excel-file
 
 Download a basic layout Excel file with CSV-style data.
 
 ## Installation
 
 ```bash
-npm install download-as-spreadsheet
+npm install export-excel-file
 ```
 
 ## Usage
 
 ```typescript
-import { downloadAsSpreadsheet } from 'download-as-spreadsheet';
+import { downloadAsSpreadsheet } from 'export-excel-file';
 
 // With array of objects
 downloadAsSpreadsheet([
