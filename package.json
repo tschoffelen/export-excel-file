@@ -1,5 +1,5 @@
 {
-  "name": "download-excel-file",
+  "name": "download-as-spreadsheet",
   "version": "1.0.0",
   "description": "Download a basic layout Excel file with CSV-style data.",
   "main": "dist/index.js",
@@ -7,7 +7,7 @@
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/tschoffelen/download-excel-file.git",
+  "repository": "https://github.com/tschoffelen/download-as-spreadsheet.git",
   "author": "Thomas Schoffelen <thomas@schof.co>",
   "license": "MIT",
   "scripts": {

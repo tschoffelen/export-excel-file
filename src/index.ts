@@ -5,7 +5,7 @@ import { autoSizeColumns, downloadFile, makeHeaderBold } from "./utils";
 
 export type { DownloadExcelFileOptions, InputData };
 
-export const downloadExcelFile = (
+export const downloadAsSpreadsheet = (
   data: InputData,
   options: DownloadExcelFileOptions = {}
 ) => {

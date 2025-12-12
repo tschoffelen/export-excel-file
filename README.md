@@ -1,39 +1,35 @@
-# download-excel-file
+# download-as-spreadsheet
 
 Download a basic layout Excel file with CSV-style data.
 
 ## Installation
 
 ```bash
-npm install download-excel-file
+npm install download-as-spreadsheet
 ```
 
 ## Usage
 
 ```typescript
-import { downloadExcelFile } from 'download-excel-file';
+import { downloadAsSpreadsheet } from 'download-as-spreadsheet';
 
 // With array of objects
-downloadExcelFile([
+downloadAsSpreadsheet([
   { name: 'John', age: 30 },
   { name: 'Jane', age: 25 }
 ]);
 
 // With array of arrays
-downloadExcelFile([
+downloadAsSpreadsheet([
   ['Name', 'Age'],
   ['John', 30],
   ['Jane', 25]
 ]);
 
 // With options
-downloadExcelFile(data, {
+downloadAsSpreadsheet(data, {
   filename: 'report.xlsx',
   sheetTitle: 'Data',
   cellPadding: 2
 });
 ```
-
-## License
-
-MIT
