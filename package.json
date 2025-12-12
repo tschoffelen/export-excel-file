@@ -1,0 +1,27 @@
+{
+  "name": "download-excel-file",
+  "version": "1.0.0",
+  "description": "Download a basic layout Excel file with CSV-style data.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": "https://github.com/tschoffelen/download-excel-file.git",
+  "author": "Thomas Schoffelen <thomas@schof.co>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest",
+    "release": "semantic-release"
+  },
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "jsdom": "^27.3.0",
+    "semantic-release": "^25.0.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  }
+}
