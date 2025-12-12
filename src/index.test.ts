@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
-import { downloadExcelFile } from "./index";
+import { downloadAsSpreadsheet } from "./index";
 
-describe("downloadExcelFile", () => {
+describe("downloadAsSpreadsheet", () => {
   it("should create a download link with correct filename", () => {
     const data = [
       { name: "John", age: 30 },
@@ -12,7 +12,7 @@ describe("downloadExcelFile", () => {
     const appendChildSpy = vi.spyOn(document.body, "appendChild");
     const removeChildSpy = vi.spyOn(document.body, "removeChild");
 
-    downloadExcelFile(data, { filename: "test.xlsx" });
+    downloadAsSpreadsheet(data, { filename: "test.xlsx" });
 
     expect(createElementSpy).toHaveBeenCalledWith("a");
     expect(appendChildSpy).toHaveBeenCalled();
@@ -29,7 +29,7 @@ describe("downloadExcelFile", () => {
     vi.spyOn(document.body, "appendChild");
     vi.spyOn(document.body, "removeChild");
 
-    downloadExcelFile(data, { filename: "test" });
+    downloadAsSpreadsheet(data, { filename: "test" });
 
     const linkElement = createElementSpy.mock.results[0]?.value as HTMLAnchorElement;
     expect(linkElement.download).toBe("test.xlsx");
