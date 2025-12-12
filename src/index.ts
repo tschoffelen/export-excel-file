@@ -1,44 +1,72 @@
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 
 import { DownloadExcelFileOptions, InputData } from "./types";
-import { autoSizeColumns, downloadFile, makeHeaderBold } from "./utils";
+import { downloadFile } from "./utils";
 
 export type { DownloadExcelFileOptions, InputData };
 
-export const downloadAsSpreadsheet = (
+export const downloadAsSpreadsheet = async (
   data: InputData,
   options: DownloadExcelFileOptions = {}
 ) => {
-  let worksheet: XLSX.WorkSheet;
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet(options.sheetTitle || "Data");
+
   let headers: string[] = [];
+  let rows: any[][] = [];
 
   if (data.length > 0 && Array.isArray(data[0])) {
     // Data is array of arrays - first array is the header row
-    worksheet = XLSX.utils.aoa_to_sheet(data as any[][]);
     headers = data[0].map(String);
+    rows = data.slice(1) as any[][];
   } else {
     // Data is array of objects - keys represent the header row
-    worksheet = XLSX.utils.json_to_sheet(data as Record<string, any>[]);
     headers = data.length > 0 ? Object.keys(data[0]) : [];
+    rows = (data as Record<string, any>[]).map(row =>
+      headers.map(header => row[header])
+    );
   }
 
-  autoSizeColumns(worksheet, headers, data, options);
-  makeHeaderBold(worksheet, headers);
+  // Add header row with bold styling
+  const headerRow = worksheet.addRow(headers);
+  headerRow.font = { bold: true };
 
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(
-    workbook,
-    worksheet,
-    options.sheetTitle || "Data"
-  );
+  // Add data rows
+  rows.forEach(row => {
+    worksheet.addRow(row);
+  });
+
+  // Apply text wrapping if enabled
+  if (options.wrapCells) {
+    worksheet.eachRow((row) => {
+      row.eachCell((cell) => {
+        cell.alignment = { wrapText: true };
+      });
+    });
+  }
+
+  // Auto-size columns
+  const cellPadding = options.cellPadding ?? 2;
+  const minCellWidth = options.minCellWidth ?? 10;
+  const maxCellWidth = options.maxCellWidth ?? 50;
+
+  worksheet.columns.forEach((column, colIndex) => {
+    let maxWidth = headers[colIndex]?.length || 0;
+
+    rows.forEach(row => {
+      const cellValue = String(row[colIndex] ?? "");
+      maxWidth = Math.max(maxWidth, cellValue.length);
+    });
+
+    column.width = Math.min(
+      Math.max(maxWidth + cellPadding, minCellWidth),
+      maxCellWidth
+    );
+  });
 
   // Generate Excel file
-  const excelBuffer = XLSX.write(workbook, {
-    bookType: "xlsx",
-    type: "array",
-    cellStyles: true
-  });
-  const blob = new Blob([excelBuffer], {
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
 

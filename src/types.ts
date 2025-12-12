@@ -6,4 +6,5 @@ export type DownloadExcelFileOptions = {
   maxCellWidth?: number;
   minCellWidth?: number;
   sheetTitle?: string;
+  wrapCells?: boolean;
 };

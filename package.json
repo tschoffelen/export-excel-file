@@ -22,7 +22,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+    "exceljs": "^4.4.0"
   },
   "devDependencies": {
     "jsdom": "^27.3.0",

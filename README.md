@@ -11,25 +11,25 @@ npm install export-excel-file
 ## Usage
 
 ```typescript
-import { downloadAsSpreadsheet } from 'export-excel-file';
+import { downloadAsSpreadsheet } from "export-excel-file";
 
 // With array of objects
-downloadAsSpreadsheet([
-  { name: 'John', age: 30 },
-  { name: 'Jane', age: 25 }
+await downloadAsSpreadsheet([
+  { name: "John", age: 30 },
+  { name: "Jane", age: 25 }
 ]);
 
 // With array of arrays
-downloadAsSpreadsheet([
-  ['Name', 'Age'],
-  ['John', 30],
-  ['Jane', 25]
+await downloadAsSpreadsheet([
+  ["Name", "Age"],
+  ["John", 30],
+  ["Jane", 25]
 ]);
 
 // With options
-downloadAsSpreadsheet(data, {
-  filename: 'report.xlsx',
-  sheetTitle: 'Data',
-  cellPadding: 2
+await downloadAsSpreadsheet(data, {
+  filename: "report.xlsx",
+  sheetTitle: "Data",
+  wrapCells: true
 });
 ```
