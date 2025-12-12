@@ -22,7 +22,13 @@ export const autoSizeColumns = (
     });
 
     return {
-      wch: Math.min(Math.max(maxWidth + (options.cellPadding ?? 2), 10), 50),
+      wch: Math.min(
+        Math.max(
+          maxWidth + (options.cellPadding ?? 2),
+          options.minCellWidth ?? 10
+        ),
+        options.maxCellWidth ?? 50
+      ),
     };
   });
 
@@ -45,15 +51,15 @@ export const makeHeaderBold = (
 
 export const downloadFile = (blob: Blob, filename: string) => {
   const url = window.URL.createObjectURL(blob);
-  
+
   const link = document.createElement("a");
   link.href = url;
   link.setAttribute("download", filename);
   link.style.visibility = "hidden";
-  
+
   document.body.appendChild(link);
   link.click();
-  
+
   document.body.removeChild(link);
   window.URL.revokeObjectURL(url);
 };
